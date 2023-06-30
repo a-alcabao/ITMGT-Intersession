@@ -35,7 +35,7 @@ def savings(gross_pay, tax_rate, expenses):
     # Stay within the function. Only use the parameters as input. The function should return your answer.
     tax_equivalent = int(gross_pay*tax_rate)
     aftertax = gross_pay-tax_equivalent
-    net = aftertax-expenses
+    net = int(aftertax-expenses)
     return net
 
 def material_waste(total_material, material_units, num_jobs, job_consumption):
