@@ -33,7 +33,7 @@ def savings(gross_pay, tax_rate, expenses):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    tax_equivalent = int(gross_pay*tax_rate)
+    tax_equivalent = gross_pay*tax_rate
     aftertax = gross_pay-tax_equivalent
     net = int(aftertax-expenses)
     return net
