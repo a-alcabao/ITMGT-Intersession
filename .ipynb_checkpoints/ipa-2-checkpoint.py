@@ -38,17 +38,20 @@ def shift_letter(letter, shift):
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
     for i in letter:
-        shifted = chr(ord(i) + shift)
-        if ord(letter) == 32:
-            return chr(32)
-            break
-        elif ord(shifted) > 90:
-            wrap_shifted = chr(64 + ord(shifted)-90)
-            return(wrap_shifted)
-            break
+        shifted = ord(i) + shift
+        if i == ' ':
+            return ' '
+
+        elif shifted > 90:
+            excessShift = shifted - 90
+            wrapShiftedOrd = 64 + excessShift
+            while wrapShiftedOrd > 90:
+                excessShift = wrapShiftedOrd - 90
+                wrapShiftedOrd = 64 + excessShift
+            return(chr(wrapShiftedOrd))
+        
         else:
-            return(shifted)
-            break
+            return(chr(shifted))
     
 def caesar_cipher(message, shift):
     '''Caesar Cipher.
@@ -72,14 +75,21 @@ def caesar_cipher(message, shift):
     # Stay within the function. Only use the parameters as input. The function should return your answer.
     stringlist = []
     for i in message:
-        shifted = chr(ord(i) + shift)
-        if ord(i) == 32:
-            stringlist.append(chr(32))
-        elif ord(shifted) > 90:
-            wrap_shifted = chr(64 + ord(shifted)-90)
-            stringlist.append(wrap_shifted)
+        shifted = ord(i) + shift
+        if i == ' ':
+            stringlist.append(' ')
+
+        elif shifted > 90:
+            excessShift = shifted - 90
+            wrapShiftedOrd = 64 + excessShift
+            while wrapShiftedOrd > 90:
+                excessShift = wrapShiftedOrd - 90
+                wrapShiftedOrd = 64 + excessShift
+            stringlist.append(chr(wrapShiftedOrd))
+        
         else:
-            stringlist.append(shifted)
+            stringlist.append(chr(shifted))
+            
     outstring = ''.join(stringlist)
     return(outstring)
 
