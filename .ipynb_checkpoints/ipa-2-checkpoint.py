@@ -37,8 +37,19 @@ def shift_letter(letter, shift):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    pass
-
+    for i in letter:
+        shifted = chr(ord(i) + shift)
+        if ord(letter) == 32:
+            return chr(32)
+            break
+        elif ord(shifted) > 90:
+            wrap_shifted = chr(64 + ord(shifted)-90)
+            return(wrap_shifted)
+            break
+        else:
+            return(shifted)
+            break
+    
 def caesar_cipher(message, shift):
     '''Caesar Cipher.
     10 points.
@@ -59,7 +70,18 @@ def caesar_cipher(message, shift):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    pass
+    stringlist = []
+    for i in message:
+        shifted = chr(ord(i) + shift)
+        if ord(i) == 32:
+            stringlist.append(chr(32))
+        elif ord(shifted) > 90:
+            wrap_shifted = chr(64 + ord(shifted)-90)
+            stringlist.append(wrap_shifted)
+        else:
+            stringlist.append(shifted)
+    outstring = ''.join(stringlist)
+    return(outstring)
 
 def shift_by_letter(letter, letter_shift):
     '''Shift By Letter.
@@ -89,7 +111,19 @@ def shift_by_letter(letter, letter_shift):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    pass
+    for i in letter:
+        shift = (ord(letter_shift)-65)
+        shifted = chr(ord(i) + shift)
+        if ord(letter) == 32:
+            return chr(32)
+            break
+        elif ord(shifted) > 90:
+            wrap_shifted = chr(64 + ord(shifted)-90)
+            return(wrap_shifted)
+            break
+        else:
+            return(shifted)
+            break
 
 def vigenere_cipher(message, key):
     '''Vigenere Cipher.
@@ -122,7 +156,27 @@ def vigenere_cipher(message, key):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    pass
+    keylist = []
+    ctr = 0
+    if len(key) < len(message):
+        while len(key) < len(message):
+            key += key
+    key = key[:len(message)]
+    for i in message:
+        shift = (ord(key[ctr])-65)
+        shifted = chr(ord(i) + shift)
+        if ord(i) == 32:
+            keylist.append(chr(32))
+        elif ord(shifted) > 90:
+            wrap_shifted = chr(64 + ord(shifted)-90)
+            keylist.append(wrap_shifted)
+        else:
+            keylist.append(shifted)
+        ctr += 1
+    outstring = ''.join(keylist)
+    return(outstring)
+            
+        
 
 def scytale_cipher(message, shift):
     '''Scytale Cipher.
@@ -176,7 +230,16 @@ def scytale_cipher(message, shift):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    pass
+    encoded = []
+    while len(message)%shift != 0:
+        message += "_"
+    for i, _ in enumerate(message): #ChatGPT used for learning "_ in enumerate"
+        equivalent = message[(i // shift) + (len(message) // shift) * (i % shift)]
+        encoded.append(equivalent)
+        
+    output = ''.join(encoded)
+    return output
+        
 
 def scytale_decipher(message, shift):
     '''Scytale De-cipher.
@@ -205,4 +268,13 @@ def scytale_decipher(message, shift):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    pass
+    decode = []
+    num_slices = (len(message) + shift -1)//shift
+    for i, _ in enumerate(message):
+        row = i % num_slices
+        col = i // num_slices
+        index = col + row * shift
+        decode.append(message[index])
+    
+    decoded = ''.join(decode)
+    return(decoded)
