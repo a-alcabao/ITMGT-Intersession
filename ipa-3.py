@@ -41,8 +41,19 @@ def relationship_status(from_member, to_member, social_graph):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    pass
+    if to_member in social_graph[from_member]["following"]:
 
+        if from_member in social_graph[to_member]["following"]:
+            return('friends')
+        else:
+            return('follower')
+            
+    else:
+        if from_member in social_graph[to_member]["following"]:
+            return('followed by')   
+        else:
+            return('no relationship')
+            
 
 def tic_tac_toe(board):
     '''Tic Tac Toe.
@@ -70,7 +81,48 @@ def tic_tac_toe(board):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    pass
+    win_count = len(board[0])
+    symbols = ['X', 'O']
+    winner = 'NO WINNER'
+    
+    for symbol in symbols:
+    # horizontal check
+        for row in board:
+            if row.count(symbol) == win_count:
+                winner = symbol
+
+    # vertical check
+    # make a list for each column
+        for column in range(win_count):
+            columnlist = []
+            for row in board:
+                columnlist.append(row[column])
+                
+            if columnlist.count(symbol) == win_count:
+                winner = symbol
+                
+    # diagonal check
+        # descending
+        descendinglist = []
+        for index in range(win_count):
+            descendinglist.append(board[index][index])
+            
+        if descendinglist.count(symbol) == win_count:
+            winner = symbol
+                
+        # ascending
+        board1 = board.copy()
+        ascendinglist = []
+        for row in board1:
+            row.reverse()
+        
+        for indexa in range(win_count):
+            ascendinglist.append(board1[indexa][indexa])
+        
+        if ascendinglist.count(symbol) == win_count:
+            winner = symbol
+        
+    return winner
 
 def eta(first_stop, second_stop, route_map):
     '''ETA.
@@ -103,4 +155,17 @@ def eta(first_stop, second_stop, route_map):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    pass
+    etaTotal = 0
+    nextStop = first_stop
+    completedTrip = False
+
+    while not completedTrip:
+        for route in route_map:
+            if nextStop == route[0]:
+                etaTotal += route_map[route]['travel_time_mins']
+                nextStop = route[1]
+                if nextStop == second_stop:
+                    completedTrip = True
+                break
+                
+    return etaTotal
